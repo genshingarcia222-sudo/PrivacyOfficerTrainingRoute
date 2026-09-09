@@ -2666,7 +2666,8 @@ function renderSidebar(ri, band){
     h += '<button class="nav-item'+active+'" data-action="nav" data-view="'+item.key+'">'+item.label+'</button>';
   });
   h += '</div>';
-  h += '<div class="sidebar-foot"><div class="readiness-mini"><div class="num">'+ri+'</div><div class="lbl">Readiness Index<br>'+band+'</div></div></div>';
+  h += '<div class="sidebar-foot"><div class="readiness-mini"><div class="num">'+ri+'</div><div class="lbl">Readiness Index<br>'+band+'</div></div>'+
+       '<div style="margin-top:12px;font-size:10.5px;color:#6B7480">Build '+APP_BUILD_DATE+' · 26 modules incl. RA 10173</div></div>';
   h += '</div>';
   return h;
 }
