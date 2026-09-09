@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Officer Command — Health Privacy &amp; Compliance Training</title>
-<meta name="description" content="A free, self-contained, in-browser HIPAA Privacy Officer training simulator: 25 modules, interactive case work, a living regulatory-status tracker, and no backend required.">
+<title>Privacy Officer Command — HIPAA &amp; RA 10173 Health Privacy Training</title>
+<meta name="description" content="A free, self-contained, in-browser HIPAA Privacy Officer training simulator: 26 modules (including a dedicated HIPAA-vs-Philippine Data Privacy Act comparison), interactive case work, a living regulatory-status tracker, and no backend required.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231B2430'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23F1E4BE' text-anchor='middle'%3E%C2%A7%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,7 +118,10 @@ button{font-family:inherit; cursor:pointer}
 .grid-2{grid-template-columns:1fr 1fr}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-4{grid-template-columns:repeat(4,1fr)}
-@media (max-width:880px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.ring-grid{grid-template-columns:repeat(5,1fr)}
+@media (max-width:880px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .ring-grid{grid-template-columns:repeat(3,1fr) !important}
+}
 
 /* ---------- status badges ---------- */
 .badge{
@@ -219,6 +222,12 @@ label{display:block; font-size:12.5px; font-weight:600; color:var(--text-muted);
 .kv dd{margin:0}
 .callout{border-left:3px solid var(--brass); background:var(--brass-bg); padding:12px 16px; border-radius:0 var(--radius) var(--radius) 0; font-size:13.5px}
 .callout-neutral{border-left:3px solid var(--ink-soft); background:var(--line-soft); padding:12px 16px; border-radius:0 var(--radius) var(--radius) 0; font-size:13.5px}
+.callout-ph{border:1px solid var(--s-guidance-line); background:var(--s-guidance-bg); border-radius:var(--radius); padding:14px 16px; margin:18px 0; font-size:13.5px}
+.ph-compare-label{font-weight:700; color:var(--s-guidance); font-size:12.5px; margin-bottom:10px; letter-spacing:.01em}
+.compare-table{background:var(--card); border-radius:var(--radius); overflow:hidden}
+.compare-table th{background:var(--line-soft)}
+.compare-table td{font-size:13px; line-height:1.5; vertical-align:top}
+.compare-table td:first-child{white-space:nowrap; color:var(--text-muted)}
 .step-track{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px}
 .step-chip{padding:5px 10px; border-radius:100px; font-size:11.5px; font-weight:600; background:var(--line-soft); color:var(--text-muted)}
 .step-chip.done{background:var(--s-effective-bg); color:var(--s-effective)}
@@ -425,6 +434,61 @@ var AUTHORITIES = {
     date:'Proposed Jan. 21, 2021; comment period closed May 6, 2021; sent to OMB for final-rule review Apr. 4, 2026; targeted for final action in 2026 — not yet published as final as of this training\'s last verification', status:'proposed',
     url:'https://www.federalregister.gov/documents/2021/01/21/2020-27157/proposed-modifications-to-the-hipaa-privacy-rule-to-support-and-remove-barriers-to-coordinated-care',
     why:'A completely separate rulemaking from the 2024 Reproductive Health Rule (different RIN — AA00 vs. AA20) that would expand care-coordination disclosures, add a minimum-necessary exception for care coordination, let individuals take photos of their own records, and replace the NPP acknowledgment-of-receipt requirement. It is NOT current law. Confirm at hhs.gov/hipaa or federalregister.gov whether it has published as final before teaching any of its provisions as binding.'
+  },
+
+  // ---------------------------------------------------------------------------------------
+  // PHILIPPINE AUTHORITIES — Republic Act No. 10173 (Data Privacy Act of 2012) and its
+  // implementing/regulatory ecosystem, sourced from the Official Gazette and the National
+  // Privacy Commission (NPC), the Philippine counterpart to HHS/OCR.
+  // ---------------------------------------------------------------------------------------
+  ph_dpa_statute: {
+    title:'Data Privacy Act of 2012 (Republic Act No. 10173)',
+    source:'Official Gazette of the Republic of the Philippines', citation:'Republic Act No. 10173',
+    date:'Signed Aug. 15, 2012; effective Sept. 8, 2012', status:'effective',
+    url:'https://www.officialgazette.gov.ph/2012/08/15/republic-act-no-10173/',
+    why:'The Philippines\' primary data privacy statute — the direct counterpart to HIPAA, but far broader in scope: it covers essentially any personal information controller or processor handling Philippine-linked personal data, not just healthcare entities. Created the National Privacy Commission (NPC).'
+  },
+  ph_dpa_irr: {
+    title:'Implementing Rules and Regulations of the Data Privacy Act of 2012',
+    source:'National Privacy Commission', citation:'IRR of Republic Act No. 10173',
+    date:'Finalized and effective 2016; periodically supplemented by NPC circulars and advisories', status:'effective',
+    url:'https://privacy.gov.ph/data-privacy-act/',
+    why:'Fleshes out the Act\'s general principles into operational requirements — consent mechanics, security safeguards, breach procedures — the way HIPAA\'s own regulatory text does for the statute.'
+  },
+  ph_npc_breach_circular: {
+    title:'Personal Data Breach Management (NPC Circular No. 16-03)',
+    source:'National Privacy Commission', citation:'NPC Circular No. 2016-03',
+    date:'Issued Dec. 15, 2016', status:'effective',
+    url:'https://privacy.gov.ph/wp-content/uploads/2022/01/sgd-npc-circular-16-03-personal-data-breach-management.pdf',
+    why:'Sets the Philippines\' breach notification clock at 72 hours to BOTH the NPC and affected data subjects (concurrently), with a full report due in 5 days — sharply faster than HIPAA\'s 60-day outer limit, and worth contrasting directly in Module 12/13.'
+  },
+  ph_npc_registration_circular: {
+    title:'Registration of Data Processing Systems and Notification Regarding Automated Decision-Making (NPC Circular No. 2022-04)',
+    source:'National Privacy Commission', citation:'NPC Circular No. 2022-04',
+    date:'Issued Dec. 5, 2022; effective Jan. 11, 2023', status:'effective',
+    url:'https://privacy.gov.ph/pips-and-pics/faqs/',
+    why:'Governs mandatory Data Protection Officer (DPO) and Data Processing System registration — required for organizations with 250+ employees, processing SPI of 1,000+ individuals, or engaged in high-risk processing. The closest Philippine equivalent to a Privacy Officer designation requirement, but with a formal government registration step HIPAA does not have.'
+  },
+  ph_npc_pia_draft: {
+    title:'Draft Circular Revising Privacy Impact Assessment Requirements (proposed — not yet final)',
+    source:'National Privacy Commission (proposed circular, public consultation)', citation:'Draft circular, NPC public consultation (2026)',
+    date:'Public consultation opened 2026; not yet finalized as of this training\'s last verification', status:'proposed',
+    url:'https://privacy.gov.ph',
+    why:'Would narrow mandatory Privacy Impact Assessments for routine processing while tightening requirements for AI, biometric, and cross-border processing. This is NOT yet binding — a direct Philippine parallel to the still-proposed U.S. HIPAA Security Rule modernization (Module 14): confirm at privacy.gov.ph before treating either as settled.'
+  },
+  ph_health_privacy_code: {
+    title:'Health Privacy Code (Joint Administrative Order implementing the Philippine Health Information Exchange)',
+    source:'Department of Health, Department of Science and Technology, and PhilHealth, reviewed by NPC', citation:'Joint AO 2016 (Health Privacy Code); DOH AO 2016-0037 (EMR/HL7-FHIR standards)',
+    date:'2016, with the National eHealth Privacy Framework revised 2023', status:'effective',
+    url:'https://www.doh.gov.ph',
+    why:'A sector-specific translation of the DPA\'s general principles into healthcare operations — informed consent standards for health information exchange, PhilHealth Personal Identification Numbers as the patient identifier, and de-identification requirements for the PHIE data warehouse. The closest Philippine analog to HIPAA\'s health-sector specificity, since the DPA itself is not healthcare-specific.'
+  },
+  ph_section13f_advisory: {
+    title:'Guidelines on Personal Data Processing Based on Section 13(f) of the Data Privacy Act (legal claims exception)',
+    source:'National Privacy Commission', citation:'NPC Advisory No. 2024-02',
+    date:'Issued 2024', status:'guidance',
+    url:'https://privacy.gov.ph',
+    why:'Interprets when sensitive/privileged personal information (including health records) may be processed for legal claims or court proceedings without consent — the RA 10173 analog to HIPAA\'s judicial-proceeding disclosure permission.'
   }
 };
 
@@ -432,6 +496,22 @@ function authorityButton(key){
   if(!AUTHORITIES[key]) return '';
   return '<button class="authority-btn" data-action="open-authority" data-key="'+key+'">'+
          '<span class="authority-seal">§</span> Authority</button>';
+}
+
+// ---------------------------------------------------------------------------------------
+// COMPARISON TABLE — a lightweight helper for side-by-side HIPAA vs. RA 10173 callouts,
+// used throughout the Learn content below and in the dedicated Module 26.
+// ---------------------------------------------------------------------------------------
+function usPhCompareTable(rows, opts){
+  opts = opts || {};
+  var h = '<div class="callout-ph">';
+  h += '<div class="ph-compare-label">\uD83C\uDDFA\uD83C\uDDF8 \u2194 \uD83C\uDDF5\uD83C\uDDED '+(opts.title||'US \u2013 Philippines Comparison')+'</div>';
+  h += '<table class="compare-table"><thead><tr><th>Dimension</th><th>HIPAA (United States)</th><th>RA 10173 (Philippines)</th></tr></thead><tbody>';
+  rows.forEach(function(r){
+    h += '<tr><td><strong>'+escapeHtml(r[0])+'</strong></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';
+  });
+  h += '</tbody></table></div>';
+  return h;
 }
 
 // ---------------------------------------------------------------------------------------
@@ -451,7 +531,8 @@ var DOMAINS = {
   research:       'Regulatory Research',
   state_multilaw: 'State & Multi-Law Analysis',
   ai_governance:  'AI & Data Governance',
-  exec_judgment:  'Governance & Executive Judgment'
+  exec_judgment:  'Governance & Executive Judgment',
+  ph_dpa:         'Philippine Data Privacy Act (RA 10173)'
 };
 
 // ---------------------------------------------------------------------------------------
@@ -472,7 +553,7 @@ var DOMAINS = {
 // ---------------------------------------------------------------------------------------
 var MODULES = [
 { id:1, level:1, title:'HIPAA Architecture', domain:'foundational', practice:'map', dataKey:'m1',
-  authorityKeys:['hhs_hipaa_home','hipaa_statute','privacy_rule','security_rule','breach_rule','enforcement_rule','hitech'],
+  authorityKeys:['hhs_hipaa_home','hipaa_statute','privacy_rule','security_rule','breach_rule','enforcement_rule','hitech','ph_dpa_statute'],
   blurb:'How HIPAA, HITECH, and the four operating rules fit together — and who OCR actually regulates.',
   learnHtml:
     '<p><strong>HIPAA</strong> (1996) is a statute, not a single rule. Congress told HHS to write regulations '+
@@ -486,10 +567,15 @@ var MODULES = [
     '</ul>'+
     diagramBranch('HIPAA (1996) + HITECH (2009)', ['Privacy Rule','Security Rule','Breach Notification Rule','Enforcement Rule'], {outputLabel:'Enforced by HHS OCR', caption:'HIPAA architecture: one statute (amended by HITECH), four operating rules, one enforcer.'})+
     '<p><strong>HITECH</strong> (2009) is the amendment that made Business Associates directly liable under HIPAA for the first time, created the Breach Notification Rule, and raised penalty tiers. The 2013 "Omnibus Rule" is where HHS folded most of HITECH into the existing regulatory text.</p>'+
-    '<p>HIPAA only regulates two kinds of entities: <strong>covered entities</strong> (health plans, health care clearinghouses, and health care providers who transmit health information electronically in connection with a covered transaction) and their <strong>Business Associates</strong> (persons/entities that create, receive, maintain, or transmit PHI on a covered entity\'s behalf). If an organization is neither, HIPAA generally does not apply to it directly — even if it is handling health information (this is exactly why the FTC Health Breach Notification Rule and state consumer-health-data laws exist to fill that gap; see Regulatory Watch).</p>'
+    '<p>HIPAA only regulates two kinds of entities: <strong>covered entities</strong> (health plans, health care clearinghouses, and health care providers who transmit health information electronically in connection with a covered transaction) and their <strong>Business Associates</strong> (persons/entities that create, receive, maintain, or transmit PHI on a covered entity\'s behalf). If an organization is neither, HIPAA generally does not apply to it directly — even if it is handling health information (this is exactly why the FTC Health Breach Notification Rule and state consumer-health-data laws exist to fill that gap; see Regulatory Watch).</p>'+
+    usPhCompareTable([
+      ['Founding statute','HIPAA (1996), amended by HITECH (2009)','Data Privacy Act of 2012 (RA 10173)'],
+      ['Regulator','HHS Office for Civil Rights (OCR)','National Privacy Commission (NPC)'],
+      ['Scope gate','Only "covered entities" and their Business Associates','Any personal information controller/processor handling PH-linked data, any industry — no healthcare-specific gate']
+    ], {title:'A structurally different starting point — see Module 26 for the full comparison'})
 },
 { id:2, level:1, title:'Protected Health Information (PHI)', domain:'foundational', practice:'classify', dataKey:'m2',
-  authorityKeys:['privacy_rule'],
+  authorityKeys:['privacy_rule','ph_dpa_statute'],
   blurb:'Classify 50 realistic data examples as PHI, not PHI, de-identified, or "depends" — and learn to defend the call.',
   learnHtml:
     '<p><strong>PHI</strong> is individually identifiable health information created or received by a covered entity or '+
@@ -507,7 +593,13 @@ var MODULES = [
     '(except year) directly related to an individual; phone/fax numbers; email addresses; SSNs; medical record numbers; '+
     'health plan beneficiary numbers; account numbers; certificate/license numbers; vehicle identifiers; device '+
     'identifiers; URLs; IP addresses; biometric identifiers; full-face photos and comparable images; and any other unique '+
-    'identifying number, characteristic, or code.</p>'
+    'identifying number, characteristic, or code.</p>'+
+    usPhCompareTable([
+      ['What it\'s called','Protected Health Information (PHI)','Sensitive Personal Information (Sec. 3(l)) — plus a separate "Privileged Information" category (Sec. 3(k))'],
+      ['What triggers coverage','Held by a covered entity/Business Associate, specifically','Identifies an individual, held by ANY personal information controller/processor, any sector'],
+      ['Scope of the category','Health, treatment, and payment information','Health PLUS race, ethnic origin, marital status, religious/political affiliation, genetic/sexual life, offense records, and government-issued IDs — broader than PHI'],
+      ['De-identification','Removes PHI status entirely (Safe Harbor / Expert Determination)','Removes coverage once no individual is identified or reasonably identifiable — same underlying idea']
+    ], {title:'PHI vs. Sensitive Personal Information — related concepts, different boundaries (Module 26)'})
 },
 { id:3, level:1, title:'Uses and Disclosures', domain:'privacy_rule', practice:'scenario', dataKey:'m3',
   authorityKeys:['privacy_rule','min_necessary_guidance'],
@@ -524,7 +616,12 @@ var MODULES = [
     '<em>permitted</em> — an important distinction when a workforce member says "we have to release this."</p>'+
     '<p><strong>Incidental disclosures</strong> (a visitor overhears a name called in a waiting room; another patient sees '+
     'a whiteboard) are not violations if the covered entity had reasonable safeguards and applied minimum necessary in the '+
-    'underlying practice that gave rise to them.</p>'
+    'underlying practice that gave rise to them.</p>'+
+    usPhCompareTable([
+      ['Default posture','Permissive for TPO; authorization needed only outside that','Prohibited by default (Sec. 13); consent or a listed exception required for EVERY use, including treatment'],
+      ['Treatment equivalent','Treatment disclosures are affirmatively permitted, exempt from minimum necessary','Sec. 13(e): medical treatment by a practitioner/institution is a listed exception to the default prohibition — same practical outcome, opposite legal starting point'],
+      ['"Authorization" vs. "consent"','Needed only OUTSIDE the permitted categories','Needed by default, UNLESS a Sec. 13 exception applies — consent is the rule, not the exception']
+    ], {title:'Permissive-by-default vs. prohibited-by-default — the single biggest structural difference (Module 26)'})
 },
 { id:4, level:1, title:'Patient Rights', domain:'patient_rights', practice:'scenario', dataKey:'m4',
   authorityKeys:['privacy_rule','privacy_rule_coordination_nprm'],
@@ -613,7 +710,12 @@ var MODULES = [
     'Security Rule compliance for ePHI), breach/incident reporting obligations back to the covered entity, subcontractor '+
     'flow-down, and return/destruction of PHI at termination. HITECH made Business Associates <em>directly</em> liable '+
     'under HIPAA — a missing or thin BAA does not remove Security Rule obligations, it just adds contract risk on top of '+
-    'regulatory risk.</p>'
+    'regulatory risk.</p>'+
+    usPhCompareTable([
+      ['The vendor-management document','Business Associate Agreement (BAA)','Outsourcing/data-sharing agreement with a Personal Information Processor (PIP)'],
+      ['Who stays accountable to the regulator','The Business Associate has direct HIPAA liability of its own (since HITECH)','The Personal Information Controller (PIC) remains primarily accountable to the NPC, even when work is outsourced to a PIP'],
+      ['Real-world overlap','—','Philippine BPO/health-information-management vendors serving U.S. clients are very often BOTH a HIPAA Business Associate (or subcontractor) AND an NPC-regulated PIP for the exact same engagement — both agreements are typically needed']
+    ], {title:'This is exactly the situation many Philippine health-BPO compliance roles live in (Module 26)'})
 },
 { id:10, level:2, title:'Patient Complaints', domain:'patient_rights', practice:'workflow', dataKey:'m10',
   authorityKeys:['privacy_rule','enforcement_rule'],
@@ -639,7 +741,7 @@ var MODULES = [
     diagramFlow(['Detect','Contain','Preserve Evidence','Classify','Investigate','Assess','Document','Escalate','Notify','Remediate','Monitor'], {perRow:6, boxW:118, boxH:64, caption:'The eleven-stage response pipeline you\'ll work through in Practice, for every case.'})
 },
 { id:12, level:3, title:'Breach Notification', domain:'breach', practice:'scenario', dataKey:'m12',
-  authorityKeys:['breach_rule'],
+  authorityKeys:['breach_rule','ph_npc_breach_circular'],
   blurb:'Distinguish impermissible disclosure from a reportable breach, and apply notification timing and content rules.',
   learnHtml:
     diagramFlow(['Impermissible use/disclosure','Exception applies?','Four-factor analysis','Notification determination'], {perRow:4, numbered:false, boxW:150, caption:'Every case runs through this sequence before you notify anyone.'})+
@@ -651,7 +753,13 @@ var MODULES = [
     'days; notify <strong>HHS</strong> immediately if 500+ individuals are affected (with contemporaneous media notice '+
     'in the affected jurisdiction) or annually within 60 days of year-end for breaches under 500; and a '+
     '<strong>Business Associate</strong> that discovers a breach must notify the covered entity without unreasonable '+
-    'delay, no later than 60 days, so the covered entity can meet its own clock.</p>'
+    'delay, no later than 60 days, so the covered entity can meet its own clock.</p>'+
+    usPhCompareTable([
+      ['Notification deadline','No later than 60 days ("without unreasonable delay" is the real standard)','72 HOURS from knowledge or reasonable belief — a fraction of HIPAA\'s outer limit'],
+      ['Who gets notified, and when','Individuals get notice; HHS gets immediate notice only at 500+ affected, otherwise annual','NPC and affected data subjects are notified CONCURRENTLY, every time the threshold is met — no "under 500, notify HHS later" equivalent'],
+      ['What triggers the fast clock','A completed four-factor analysis decides whether notification is required at all','Mandatory, no-delay notification specifically when sensitive personal information is involved AND there is reasonable belief of unauthorized acquisition AND real risk of serious harm (NPC Circular 16-03) — analysis happens FAST, not instead of notifying'],
+      ['Full report deadline','No separate "full report" concept — the notification itself is the requirement','A complete report to the NPC is due within 5 days of the initial 72-hour notification']
+    ], {title:'If you remember one comparison from this whole course, make it this one (Module 26)'})
 },
 { id:13, level:3, title:'Four-Factor Breach Risk Assessment', domain:'breach', practice:'fourfactor', dataKey:'m13',
   authorityKeys:['breach_rule'],
@@ -753,7 +861,7 @@ var MODULES = [
     'want the bottom line and the decision they need to make, first.</p>'
 },
 { id:21, level:4, title:'Multi-Law Conflict Scenarios', domain:'state_multilaw', practice:'scenario', dataKey:'m21',
-  authorityKeys:['part2_rule','ftc_hbnr','info_blocking_rule'],
+  authorityKeys:['part2_rule','ftc_hbnr','info_blocking_rule','ph_dpa_statute'],
   blurb:'HIPAA meets Part 2, state law, information blocking, and FTC jurisdiction — which one actually governs?',
   learnHtml:
     '<p>Preemption is not a coin flip between "state law" and "federal law wins." HIPAA sets a <strong>federal floor</strong>: '+
@@ -761,7 +869,14 @@ var MODULES = [
     'preempted and continues to apply alongside HIPAA. Part 2 has historically been the <em>more restrictive</em> '+
     'framework where it applies, and the 2024 Part 2 rule narrowed but did not eliminate that gap. When two valid '+
     'requirements genuinely conflict rather than one simply being stricter, that is exactly the moment to loop in legal '+
-    'counsel rather than guess.</p>'
+    'counsel rather than guess.</p>'+
+    '<p>The same logic extends internationally. HIPAA and Republic Act 10173 are not competing for the same turf the '+
+    'way a U.S. state law and HIPAA do — they are two entirely separate legal systems that can both apply, in full, to '+
+    'the same processing activity at once (a Philippine health-BPO team handling U.S. patient data is a clean example, '+
+    'and the subject of Module 26\'s deep dive). The multi-law discipline is identical either way: identify every '+
+    'framework that could plausibly apply, work out which imposes the stricter requirement on each specific point '+
+    '(RA 10173\'s 72-hour breach clock vs. HIPAA\'s 60 days, for instance), and default to whichever is stricter rather '+
+    'than assuming compliance with one satisfies the other.</p>'
 },
 { id:22, level:4, title:'State Privacy Law', domain:'state_multilaw', practice:'research', dataKey:'m22',
   authorityKeys:['state_privacy_landscape'],
@@ -815,6 +930,46 @@ var MODULES = [
     'are dealing with next. There is rarely one clean right answer; you are scored on legal reasoning, prioritization, '+
     'investigation discipline, documentation, escalation judgment, communication, and whether you did the research '+
     'rather than guessed.</p>'
+},
+{ id:26, level:4, title:'Philippine Data Privacy Act (RA 10173) & Cross-Border Practice', domain:'ph_dpa', practice:'scenario', dataKey:'m26',
+  authorityKeys:['ph_dpa_statute','ph_dpa_irr','ph_npc_breach_circular','ph_health_privacy_code'],
+  blurb:'HIPAA is a U.S. law. If personal health data touches the Philippines — a patient, a hospital, or an outsourced BPO team — RA 10173 may govern instead, or alongside it.',
+  learnHtml:
+    '<p>The <strong>Data Privacy Act of 2012 (Republic Act No. 10173)</strong> is the Philippines\' comprehensive data '+
+    'protection law, enforced by the <strong>National Privacy Commission (NPC)</strong> — the Philippine counterpart to '+
+    'HHS/OCR. It is NOT a healthcare-specific law like HIPAA; it covers essentially any "personal information '+
+    'controller" or "personal information processor" handling personal data connected to the Philippines, in any '+
+    'sector. Health information is simply one category — a highly protected one — within its broader scope.</p>'+
+    '<p>This matters immediately for two real, common situations: (1) a <strong>Philippine hospital, clinic, or health '+
+    'plan</strong> is directly regulated by RA 10173 for all its patient data, full stop — there is no HIPAA-style '+
+    '"covered entity" gate to pass through first; and (2) the Philippines is one of the world\'s largest hubs for '+
+    '<strong>outsourced U.S. healthcare functions</strong> — medical transcription, health information management, '+
+    'medical billing and coding, and health-plan customer service. A Manila-based team processing a U.S. hospital\'s '+
+    'patient records is very often bound by <em>both</em> laws at once: HIPAA (through its Business Associate\'s own '+
+    'obligations, which flow downstream to subcontractors) and RA 10173 (because the processing happens in, and the '+
+    'workers are employed in, the Philippines).</p>'+
+    usPhCompareTable([
+      ['Governing law','HIPAA (1996) + HITECH (2009) + implementing regulations','Data Privacy Act of 2012 (RA 10173) + its 2016 IRR + NPC circulars/advisories'],
+      ['Regulator','HHS Office for Civil Rights (OCR)','National Privacy Commission (NPC), an agency attached to the DICT'],
+      ['Who is covered','Only "covered entities" and "Business Associates" — a healthcare-specific gate','Any "personal information controller" (PIC) or "personal information processor" (PIP) handling PH-linked personal data, in any industry'],
+      ['Default posture for health data','Permissive for Treatment/Payment/Operations; authorization needed only outside that','Prohibited by default (Sec. 13); requires the data subject\'s specific consent OR a listed exception — e.g., medical treatment by a practitioner/institution (Sec. 13(e))'],
+      ['Breach notification timeline','Individuals: no later than 60 days; HHS: immediate if 500+ affected, otherwise annual; a four-factor risk analysis decides if notice is even required','NPC AND affected data subjects notified within <strong>72 hours</strong> of knowledge/reasonable belief; full report due in 5 days (NPC Circular 16-03) — no 60-day cushion'],
+      ['Privacy/compliance role','"Privacy Officer" — required by function, not by a specific registered title','"Data Protection Officer" (DPO) — a specific legally required title that must be registered with the NPC within 20 working days of appointment (NPC Circular 2022-04)'],
+      ['Vendor management','Business Associate Agreement (BAA), with direct HIPAA liability for the BA','Data sharing/outsourcing agreements with a Personal Information Processor (PIP); the PIC remains primarily accountable to the NPC even when processing is outsourced'],
+      ['Penalties','Primarily civil monetary penalties in tiers; criminal penalties are rare and DOJ-prosecuted','Criminal penalties (imprisonment plus fines) are a standard tool for unauthorized processing/disclosure, in addition to NPC administrative fines — verify current figures at the Official Gazette, since amendment bills proposing higher penalties remain pending in Congress'],
+      ['Reach beyond national borders','Generally tied to U.S. covered-entity/BA status','Explicitly extraterritorial (Sec. 6) — reaches processing of Philippine citizens\'/residents\' data even by entities based entirely abroad']
+    ], {title:'HIPAA vs. RA 10173 — the structural differences that matter operationally'})+
+    '<p>Two provisions of RA 10173 deserve special attention for a healthcare-adjacent career:</p>'+
+    '<ul><li><strong>Section 3(l) "Sensitive Personal Information"</strong> explicitly includes health, education, '+
+    'genetic, and sexual-life information — broader than HIPAA\'s PHI, since it applies regardless of who holds it, '+
+    'not just covered entities/BAs.</li>'+
+    '<li><strong>Section 3(k) "Privileged Information"</strong> is a separate category covering anything privileged '+
+    'under the Rules of Court — the doctor-patient privilege is the textbook example, and it is analyzed independently '+
+    'from "sensitive personal information," sometimes with even stricter treatment.</li></ul>'+
+    '<p>Career-path note: many Philippine professionals doing this work sit inside <strong>BPO and health information '+
+    'management companies</strong> serving U.S. hospitals and health plans — a role that genuinely requires fluency in '+
+    'both frameworks at once, since the same document can be simultaneously "PHI" under a client\'s HIPAA obligations '+
+    'and "sensitive personal information" under the DPO\'s own RA 10173 accountability.</p>'
 }
 ];
 
@@ -1281,6 +1436,105 @@ m24: [
  ask:'How should this most likely be classified?', options:[{id:'a',text:'Automatically information blocking due to any delay'},{id:'b',text:'Potentially a valid Infeasibility or Content and Manner Exception, if the delay is genuinely necessary, documented, and applied consistently rather than used as a pretext'},{id:'c',text:'Always permitted with no time limit'},{id:'d',text:'Irrelevant since it is the patient\'s own data'}], correct:'b', rationale:'Not every delay is information blocking — legitimate, documented, and non-discriminatory operational limitations can fit a recognized exception.'},
 {id:'m24-6', situation:'A hospital charges patients an unusually high fee specifically for electronic EHI exports to competing providers, while providing free exports to its own affiliated network.',
  ask:'How should this most likely be classified?', options:[{id:'a',text:'A permitted fee under HIPAA\'s cost-based access-fee standard'},{id:'b',text:'Likely information blocking — a discriminatory fee structure designed to favor the hospital\'s own network over competitors is a recognized concern under the rule'},{id:'c',text:'Not relevant to information blocking since fees are a HIPAA-only issue'},{id:'d',text:'Always acceptable if disclosed in advance'}], correct:'b', rationale:'Fee structures that discriminate based on the destination of the data (favoring the entity\'s own network) raise both HIPAA fee-reasonableness and information-blocking concerns.'}
+],
+
+m26: [
+{id:'m26-1', situation:'A Manila-based health information management company processes medical records for a U.S. hospital chain under a signed Business Associate Agreement. It has never registered a Data Protection Officer with the NPC, reasoning that "we\'re a HIPAA Business Associate, not a Philippine health provider."',
+ ask:'Is that reasoning correct?', options:[
+   {id:'a',text:'Correct — HIPAA Business Associate status exempts the company from RA 10173'},
+   {id:'b',text:'Incorrect — RA 10173 applies to any personal information controller/processor handling PH-linked personal data, and a company operating and employing staff in the Philippines is independently subject to it, regardless of its separate HIPAA Business Associate obligations'},
+   {id:'c',text:'Correct, but only because the patients are American, not Filipino'},
+   {id:'d',text:'Incorrect only if the company has 250+ employees'}],
+ correct:'b', authorityKey:'ph_dpa_statute',
+ rationale:'RA 10173 and HIPAA are two independent legal regimes that can both apply to the exact same data at the exact same time. Being a HIPAA Business Associate doesn\'t opt a Philippine-based company out of its own, separate NPC obligations — and the DPO/registration requirement turns on the organization\'s own size/processing volume, not on its clients\' nationality.'},
+{id:'m26-2', situation:'A Quezon City hospital wants to disclose a patient\'s lab results to another physician at the same hospital for ongoing treatment, without a signed consent form on file.',
+ ask:'Under RA 10173, is this disclosure permitted?', options:[
+   {id:'a',text:'No — RA 10173 has no treatment-purpose exception; consent is always required first'},
+   {id:'b',text:'Yes — Section 13(e) permits processing sensitive personal information necessary for medical treatment carried out by a medical practitioner or institution, with adequate protection ensured'},
+   {id:'c',text:'Only permitted if the NPC pre-approves the disclosure'},
+   {id:'d',text:'Only permitted if the patient is a NPC-registered data subject'}],
+ correct:'b', authorityKey:'ph_dpa_statute',
+ rationale:'Section 13(e)\'s medical-treatment exception is RA 10173\'s rough equivalent to HIPAA\'s treatment permission — both let clinical care proceed without a signed authorization/consent, though RA 10173 frames it as a specific listed exception to an otherwise consent-required default, while HIPAA frames treatment as affirmatively permitted from the start.'},
+{id:'m26-3', situation:'A hospital in Cebu discovers that an unencrypted laptop containing 4,000 patients\' records (names, diagnoses, contact details) was stolen from an employee\'s car. It is now 40 hours since the hospital\'s IT team learned of the theft.',
+ ask:'What does RA 10173 require, and by when?', options:[
+   {id:'a',text:'Nothing yet — RA 10173 allows up to 60 days like HIPAA'},
+   {id:'b',text:'The hospital must notify the NPC and the affected patients within 72 hours of knowledge of the breach — it has roughly 32 hours left, and delay is not permitted given the scale (over 100 individuals) and sensitivity of the data'},
+   {id:'c',text:'Only the NPC needs to be notified; patients are optional'},
+   {id:'d',text:'Notification is only required if the laptop is recovered and confirmed accessed'}],
+ correct:'b', authorityKey:'ph_npc_breach_circular',
+ rationale:'This is the single sharpest operational contrast between the two laws: RA 10173\'s 72-hour concurrent-notification clock (NPC Circular 16-03) is dramatically faster than HIPAA\'s 60-day outer limit, and with over 100 affected individuals plus sensitive personal information involved, delay is explicitly not permitted.'},
+{id:'m26-4', situation:'A clinic\'s Data Protection Officer wants to know whether HIPAA\'s "minimum necessary" standard has a direct RA 10173 equivalent.',
+ ask:'What is the most accurate answer?', options:[
+   {id:'a',text:'RA 10173 has no comparable principle at all'},
+   {id:'b',text:'RA 10173\'s general data privacy principles (transparency, legitimate purpose, and proportionality) function similarly — processing must be adequate, relevant, and not excessive relative to its declared purpose, even though it is not called "minimum necessary"'},
+   {id:'c',text:'RA 10173 only applies proportionality to government agencies'},
+   {id:'d',text:'Proportionality only applies after a breach has occurred'}],
+ correct:'b', authorityKey:'ph_dpa_irr',
+ rationale:'Different vocabulary, similar underlying idea — RA 10173\'s "proportionality" principle and HIPAA\'s "minimum necessary" both push toward scoping data use/disclosure to what a specific purpose actually requires.'},
+{id:'m26-5', situation:'A patient information sheet at a Manila hospital lists only the patient\'s spouse as an authorized representative. The patient\'s adult sibling calls asking for a bedside update while the patient is unconscious after surgery.',
+ ask:'How should hospital staff most defensibly proceed?', options:[
+   {id:'a',text:'Refuse absolutely, since only the listed spouse may ever receive information'},
+   {id:'b',text:'Consider Section 13(c) — processing necessary to protect the life and health of the data subject when they cannot give consent — while still exercising judgment about what limited information is appropriate to share with an unlisted relative, similar to how HIPAA allows disclosure to family based on professional judgment and the patient\'s presence/incapacity'},
+   {id:'c',text:'Share the complete chart with anyone claiming to be family'},
+   {id:'d',text:'Wait for the NPC to issue a ruling before saying anything'}],
+ correct:'b', authorityKey:'ph_dpa_statute',
+ rationale:'Section 13(c)\'s "life and health" exception for an incapacitated data subject is conceptually close to HIPAA\'s allowance for disclosures to family involved in care based on professional judgment — both frameworks build in flexibility for exactly this kind of situation, without treating it as a blank check.'},
+{id:'m26-6', situation:'An NPC-registered hospital wants to outsource its billing function to a third-party processor. Its compliance team asks whether a HIPAA-style Business Associate Agreement satisfies RA 10173.',
+ ask:'What is the most accurate answer?', options:[
+   {id:'a',text:'Yes, a BAA is automatically sufficient under both laws'},
+   {id:'b',text:'A BAA addresses HIPAA obligations, but the hospital (as Personal Information Controller) remains independently accountable to the NPC and should ensure its outsourcing/data-sharing agreement with the processor meets RA 10173\'s own requirements — the two documents serve overlapping but legally distinct purposes'},
+   {id:'c',text:'No agreement is needed under RA 10173 as long as HIPAA is satisfied'},
+   {id:'d',text:'RA 10173 prohibits all outsourcing of billing functions'}],
+ correct:'b', authorityKey:'ph_dpa_irr',
+ rationale:'A single well-drafted agreement can often cover both frameworks\' substantive requirements, but they are legally separate obligations — satisfying HIPAA\'s BAA rules does not, by itself, satisfy RA 10173\'s controller-accountability and processor-agreement expectations.'},
+{id:'m26-7', situation:'A telehealth startup based in Cebu wants to know if RA 10173 reaches a Filipino patient\'s data if the company\'s servers are physically hosted in another country.',
+ ask:'What is the most accurate answer?', options:[
+   {id:'a',text:'No — RA 10173 only applies to data physically stored within the Philippines'},
+   {id:'b',text:'Yes — RA 10173 is explicitly extraterritorial (Section 6) and reaches processing involving Philippine citizens\' or residents\' personal data even when carried out abroad'},
+   {id:'c',text:'Only if the servers are owned by a Philippine company'},
+   {id:'d',text:'RA 10173 never applies to telehealth'}],
+ correct:'b', authorityKey:'ph_dpa_statute',
+ rationale:'RA 10173\'s extraterritorial reach is broader in this specific respect than HIPAA\'s — HIPAA\'s applicability turns on covered-entity/Business Associate status, not on the nationality/residency of the patient whose data is processed.'},
+{id:'m26-8', situation:'A hospital\'s newly appointed Data Protection Officer asks how quickly they must register with the NPC.',
+ ask:'What is the correct answer under current NPC rules?', options:[
+   {id:'a',text:'There is no registration requirement for DPOs in the Philippines'},
+   {id:'b',text:'Within 20 working days of appointment, per NPC Circular No. 2022-04 (assuming the organization meets the registration thresholds)'},
+   {id:'c',text:'Only once a data breach has occurred'},
+   {id:'d',text:'Within 5 years of the organization\'s founding'}],
+ correct:'b', authorityKey:'ph_npc_registration_circular',
+ rationale:'Unlike HIPAA — which requires a Privacy Officer by function but does not involve registering that person with OCR — RA 10173\'s DPO role includes a specific, time-bound NPC registration step for organizations meeting the size/processing thresholds.'},
+{id:'m26-9', situation:'A researcher wants to use fully de-identified Philippine patient records (Safe-Harbor-equivalent, all direct identifiers removed) for a public health study, without individual consent.',
+ ask:'How should this be evaluated under RA 10173?', options:[
+   {id:'a',text:'Prohibited — RA 10173 requires consent for all research use of health data, de-identified or not'},
+   {id:'b',text:'RA 10173\'s definitions of "personal information" and "sensitive personal information" both require that an individual be identified or reasonably identifiable — properly de-identified data generally falls outside the Act\'s coverage, similar to how de-identified data falls outside HIPAA\'s definition of PHI'},
+   {id:'c',text:'Only permitted with NPC pre-clearance for every study'},
+   {id:'d',text:'Prohibited unless the study is government-run'}],
+ correct:'b', authorityKey:'ph_dpa_statute',
+ rationale:'Both frameworks share this structural feature: properly de-identified data — where no individual is identified or reasonably identifiable — falls outside the scope of what each law regulates, though "properly" is doing a lot of work in both cases and should be verified against each law\'s own standard.'},
+{id:'m26-10', situation:'A U.S. health plan\'s Philippine-based customer service subsidiary suffers a breach exposing call recordings containing plan members\' health information. Most affected members are U.S. residents; a handful are Philippine residents who work for the U.S. company remotely.',
+ ask:'What is the most defensible compliance approach?', options:[
+   {id:'a',text:'Apply HIPAA\'s 60-day notification timeline only, since the parent company is a U.S. health plan'},
+   {id:'b',text:'Analyze both frameworks: HIPAA\'s breach rule likely applies to the U.S. health plan\'s obligations, while RA 10173\'s 72-hour NPC/data-subject notification clock likely applies independently because the processing occurred in the Philippines and at least some data subjects are Philippine residents — the stricter, faster timeline effectively controls the Philippine-side response'},
+   {id:'c',text:'Apply only RA 10173 and ignore HIPAA entirely'},
+   {id:'d',text:'Wait for one regulator to claim jurisdiction before doing anything'}],
+ correct:'b', authorityKey:'ph_npc_breach_circular',
+ rationale:'This is exactly the kind of dual-jurisdiction case a cross-border health BPO compliance role deals with routinely — both notification clocks can run in parallel, and practically speaking, the faster one (RA 10173\'s 72 hours) usually drives the timeline for the Philippine-based operation regardless of what HIPAA alone would allow.'},
+{id:'m26-11', situation:'A Philippine hospital\'s legal team wants to disclose a patient\'s psychiatric treatment records to opposing counsel in a pending civil lawsuit the patient filed against a third party.',
+ ask:'What is the most accurate analysis under RA 10173?', options:[
+   {id:'a',text:'Never permitted — psychiatric records are absolutely protected under all circumstances'},
+   {id:'b',text:'Section 13(f) permits processing sensitive/privileged information necessary for the establishment, exercise, or defense of legal claims, subject to NPC Advisory 2024-02\'s necessity and proportionality guidance — conceptually similar to HIPAA\'s judicial-proceeding disclosure permission, though psychiatric records may separately qualify as "privileged information" under Section 3(k), a heightened category'},
+   {id:'c',text:'Permitted automatically the moment any lawsuit is filed, without further analysis'},
+   {id:'d',text:'Only a judge can authorize disclosure, and only in writing to the NPC directly'}],
+ correct:'b', authorityKey:'ph_section13f_advisory',
+ rationale:'Section 13(f) plus its 2024 NPC guidance closely tracks the necessity/proportionality analysis this course has already taught for HIPAA\'s own judicial-proceeding permissions — but the additional "privileged information" layer for something like psychiatric records is a distinctly Philippine wrinkle worth flagging to counsel.'},
+{id:'m26-12', situation:'A hospital administrator asks whether Philippine law requires anything like HIPAA\'s Notice of Privacy Practices.',
+ ask:'What is the most accurate answer?', options:[
+   {id:'a',text:'RA 10173 has no disclosure/transparency requirement at all'},
+   {id:'b',text:'RA 10173\'s transparency principle and consent requirements mean patients must be informed, in practice, about what data is collected and why before or at the point of collection — functionally similar to an NPP\'s purpose, even without a document called "Notice of Privacy Practices"'},
+   {id:'c',text:'Only government hospitals must provide any notice'},
+   {id:'d',text:'A verbal notice is never sufficient under any circumstance'}],
+ correct:'b', authorityKey:'ph_health_privacy_code',
+ rationale:'The Health Privacy Code built for the Philippine Health Information Exchange spells this out concretely for the health sector — valid, informed consent presumes the patient actually understood what they were consenting to, which functionally requires the same kind of upfront transparency an NPP is meant to provide.'}
 ]
 
 };
@@ -2008,7 +2262,43 @@ var REGULATORY_WATCH = [
     {title:'OCR Announces 11th and 12th Risk Analysis Initiative Enforcement Actions', url:'https://www.mcdonaldhopkins.com/insights/news/ocr-announces-risk-analysis-initiative-enforcement-actions', source:'McDonald Hopkins'},
     {title:'HIPAA Settlement News: Record Fines and Right of Access Cases', url:'https://fedlaws.org/hipaa-settlement-news-record-fines-and-right-of-access-cases/', source:'FedLaws'},
     {title:'OCR Announces Notable HIPAA Enforcement Actions Against Self-Funded Group Health Plans', url:'https://www.troutmanprivacy.com/2026/08/ocr-announces-notable-hipaa-enforcement-actions-against-self-funded-group-health-plans-following-ransomware-breaches/', source:'Troutman Privacy + Cyber + AI'}
-  ]}
+  ]},
+{ id:'rw9', title:'Philippines — Data Privacy Act of 2012 (RA 10173): baseline status', status:'effective',
+  whatChanged:'The Philippines\' comprehensive data privacy statute — the country\'s counterpart to HIPAA, though far broader in scope (it is not healthcare-specific). Establishes the National Privacy Commission (NPC), defines "sensitive personal information" (including health data) and "privileged information," and sets a consent-based default for processing sensitive data.',
+  when:'Signed into law Aug. 15, 2012; effective Sept. 8, 2012; IRR finalized 2016.',
+  currentlyEnforceable:'Yes — fully in force since 2012, with the IRR in force since 2016. Several bills proposing amendments (including higher penalties) remain pending in Congress as of this training\'s last verification and are NOT yet law.',
+  appliesTo:'Any personal information controller or processor handling personal data connected to the Philippines — including entities based entirely outside the Philippines, given the Act\'s extraterritorial reach (Sec. 6).',
+  operationalImpact:'Organizations processing Philippine patients\' data, or operating Philippine-based teams processing any health data (including outsourced U.S. healthcare functions), are independently subject to this Act regardless of their HIPAA status. See Module 26 for the full comparison.',
+  poAction:'If your organization has any Philippine-based workforce, vendor, or patient population touching health data, confirm someone owns RA 10173 compliance specifically — it will not be satisfied automatically by HIPAA compliance alone.',
+  authorityKeys:['ph_dpa_statute','ph_dpa_irr'],
+  furtherReading:[]},
+{ id:'rw10', title:'Philippines — 72-Hour Breach Notification (NPC Circular 16-03)', status:'effective',
+  whatChanged:'Sets the Philippines\' breach notification framework: notification to the NPC and affected data subjects within 72 hours of knowledge or reasonable belief of a breach involving sensitive personal information with real risk of serious harm, followed by a full report within 5 days.',
+  when:'Issued Dec. 15, 2016; in force since.',
+  currentlyEnforceable:'Yes.',
+  appliesTo:'All NPC-regulated personal information controllers and processors, including hospitals, clinics, health plans, and any BPO/outsourcing vendor processing Philippine-linked health data.',
+  operationalImpact:'This is dramatically faster than HIPAA\'s 60-day outer limit. An organization operating under both frameworks needs an incident response plan built around the FASTER clock, not HIPAA\'s more forgiving one — see the direct comparison in Module 12 and Module 26.',
+  poAction:'Confirm your incident response plan\'s notification timeline is built around 72 hours for any Philippine-linked processing, not just HIPAA\'s 60-day standard.',
+  authorityKeys:['ph_npc_breach_circular'],
+  furtherReading:[]},
+{ id:'rw11', title:'Philippines — Mandatory DPO & Data Processing System Registration (NPC Circular 2022-04)', status:'effective',
+  whatChanged:'Requires registration of Data Protection Officers and data processing systems with the NPC for organizations with 250+ employees, processing sensitive personal information of 1,000+ individuals, or engaged in high-risk processing. DPOs must be registered within 20 working days of appointment. Organizations below the threshold must still file a sworn declaration and designate a DPO.',
+  when:'Issued Dec. 5, 2022; effective Jan. 11, 2023.',
+  currentlyEnforceable:'Yes.',
+  appliesTo:'Philippine-based personal information controllers and processors meeting the thresholds — very likely to include any hospital, health plan, or health-BPO of meaningful size.',
+  operationalImpact:'Unlike HIPAA\'s Privacy Officer (required by function, no registration step), RA 10173\'s DPO role includes a specific, time-bound government registration requirement — missing it is itself a compliance gap, independent of any breach.',
+  poAction:'Confirm your organization\'s DPO is actually registered with the NPC (not just internally designated), and that the 20-working-day clock is tracked for any future DPO changes.',
+  authorityKeys:['ph_npc_registration_circular'],
+  furtherReading:[]},
+{ id:'rw12', title:'Philippines — Draft Circular Revising PIA Requirements (proposed — not yet final)', status:'proposed',
+  whatChanged:'The NPC has circulated a draft revising Privacy Impact Assessment requirements — narrowing mandatory PIAs for routine processing while tightening requirements specifically for AI systems, biometric data, and cross-border data transfers.',
+  when:'Public consultation opened in 2026; not yet finalized as of this training\'s last verification.',
+  currentlyEnforceable:'No — this is a proposed circular only. The current PIA framework remains in force until any revision is actually finalized.',
+  appliesTo:'If finalized, would apply to all NPC-regulated personal information controllers and processors, with particular impact on AI-enabled and cross-border health-data processing (see Module 23).',
+  operationalImpact:'A near-exact structural parallel to the still-proposed U.S. HIPAA Security Rule modernization (Module 14) — do not train staff on this draft\'s specifics as though they are already binding.',
+  poAction:'Track this draft circular\'s status at privacy.gov.ph; treat its provisions as "watch and plan for," not "comply with now."',
+  authorityKeys:['ph_npc_pia_draft'],
+  furtherReading:[]}
 ];
 
 // ---------------------------------------------------------------------------------------
@@ -2058,8 +2348,18 @@ var CERTIFICATIONS = [
   exam:'A single proctored exam on privacy program governance, operational lifecycle, and metrics.',
   cost:'Verify current pricing directly at iapp.org.',
   renewal:'Requires ongoing continuing privacy education (CPE) credits and periodic renewal — verify current cycle at iapp.org.',
-  relevance:'Most relevant when moving from individual-contributor privacy work into managing or building an entire privacy program (Modules 18-19).',
-  timing:'Often pursued alongside or after CIPP/US, once program-management responsibilities begin.', url:'https://iapp.org/certify/cipm/' }
+  relevance:'Most relevant when moving from individual-contributor privacy work into managing or building an entire privacy program (Modules 18-19) — jurisdiction-neutral, so it also applies directly to RA 10173-context program management (Module 26).',
+  timing:'Often pursued alongside or after CIPP/US, once program-management responsibilities begin.', url:'https://iapp.org/certify/cipm/' },
+{ id:'dpoace', name:'NPC Data Protection Officer Certification (DPO ACE)', org:'National Privacy Commission (Philippines), delivered through NPC-accredited Institutional Data Privacy Trainers',
+  focus:'RA 10173-specific — the Data Privacy Act, its IRR, and NPC issuances, plus practical DPO duties (Privacy Management Program, breach handling, registration).',
+  eligibility:'Generally open to current or aspiring Data Protection Officers and privacy staff; specific prerequisites vary by accredited training provider — verify at privacy.gov.ph.',
+  experience:'No fixed experience minimum published by the NPC itself; most delivering institutions recommend some data-handling or compliance background.',
+  exam:'A certification exam (DPO ACE Level 1 and beyond) administered through NPC-accredited trainers — structurally different from the U.S. credentials above, since it is tied to the government regulator itself rather than a purely private professional association.',
+  cost:'Varies by accredited training provider (universities, private trainers) — verify current pricing directly with the specific provider and confirm their NPC accreditation status at privacy.gov.ph.',
+  renewal:'Varies by provider; confirm directly.',
+  timing:'The most directly relevant credential for anyone functioning as a DPO in the Philippines, including Philippine-based staff supporting HIPAA-covered U.S. clients — pair with Module 26 before attempting it.',
+  relevance:'Unlike CIPP/US, CHPC, CHPS, CHC, and CIPM — all run by private U.S. associations — this credential is delivered through trainers formally accredited BY the Philippine regulator itself, a structurally different model worth understanding if you work across both systems.',
+  url:'https://privacy.gov.ph' }
 ];
 
 var CAREER_PATH = [
@@ -2070,7 +2370,7 @@ var CAREER_PATH = [
 { stage:'Senior Privacy Specialist / Analyst', desc:'Leading risk assessments, audits, and Security Rule coordination.', unlocks:'Security Rule, risk assessment, compliance audits — Modules 14–16.' },
 { stage:'Privacy Officer', desc:'Formal ownership of the privacy program, OCR-facing investigations, cross-functional governance.', unlocks:'Mock OCR investigation, program management, governance, executive briefing — Modules 17–20.' },
 { stage:'Privacy Manager / Director', desc:'Multi-law, multi-jurisdiction oversight, AI governance, and organization-wide strategy.', unlocks:'Multi-law conflicts, state law, AI governance, information blocking — Modules 21–24.' },
-{ stage:'Chief Privacy Officer', desc:'Executive-level accountability for the entire privacy program across a complex organization.', unlocks:'The full command simulation — Module 25 — and Readiness Index mastery.' }
+{ stage:'Chief Privacy Officer', desc:'Executive-level accountability for the entire privacy program across a complex organization.', unlocks:'The full command simulation — Module 25 — plus cross-border fluency with Module 26 (RA 10173) and Readiness Index mastery.' }
 ];
 
 var DOCUMENT_LAB_TEMPLATES = [
@@ -2359,7 +2659,7 @@ function render(){
 
 function renderSidebar(ri, band){
   var h = '<div class="sidebar">';
-  h += '<div class="brand"><div class="brand-mark">Privacy Officer Command</div><div class="brand-sub">Health Privacy &amp; Compliance Training</div></div>';
+  h += '<div class="brand"><div class="brand-mark">Privacy Officer Command</div><div class="brand-sub">HIPAA &amp; RA 10173 Training</div></div>';
   h += '<div class="nav-group">';
   NAV_ITEMS.forEach(function(item){
     var active = (state.view===item.key) ? ' active' : '';
@@ -2550,15 +2850,15 @@ function renderDashboard(){
          '<button class="btn btn-brass" data-action="nav" data-view="diagnostic">Take the diagnostic</button></div>';
   } else {
     h += '<div class="card"><div class="eyebrow">Program coverage</div>'+
-         '<p style="margin:6px 0 10px"><strong>'+completedModules+'</strong> of 25 modules started.</p>'+
-         '<div class="pbar"><span style="width:'+pct(completedModules,25)+'%"></span></div>'+
+         '<p style="margin:6px 0 10px"><strong>'+completedModules+'</strong> of '+MODULES.length+' modules started.</p>'+
+         '<div class="pbar"><span style="width:'+pct(completedModules,MODULES.length)+'%"></span></div>'+
          (newRegCount>0 ? '<p class="small" style="margin-top:12px"><a href="#" data-action="open-whatchanged" onclick="return false">'+newRegCount+' regulatory update'+(newRegCount>1?'s':'')+' need your review →</a></p>' : '<p class="small muted" style="margin-top:12px">Regulatory Watch is fully reviewed.</p>');
     h += '</div>';
   }
   h += '</div>';
 
   h += '<div class="divider-label">Competency by domain</div>';
-  h += '<div class="card"><div class="grid" style="grid-template-columns:repeat(7,1fr);gap:10px">';
+  h += '<div class="card"><div class="grid ring-grid" style="gap:10px">';
   statsArr.forEach(function(d){ h += ringSVG(d.pct, d.label); });
   h += '</div></div>';
 
@@ -2598,7 +2898,7 @@ function renderLibrary(mode){
   h += '<h1>'+(mode==='practice'?'Jump into scenario practice':'The module library')+'</h1>';
   h += '<p class="lede">'+(mode==='practice'
      ? 'Every module below opens straight into its interactive practice activity. Read the Learn tab first if a topic is new to you.'
-     : 'Twenty-five modules across four levels, plus the Level 0 diagnostic. Each one has a short Learn briefing and a hands-on activity — this program is built to be done, not just read.')+'</p>';
+     : 'Twenty-six modules across four levels, plus the Level 0 diagnostic — including a dedicated module comparing HIPAA to the Philippine Data Privacy Act (RA 10173). Each one has a short Learn briefing and a hands-on activity — this program is built to be done, not just read.')+'</p>';
 
   if(!state.diagnosticDone){
     h += '<div class="callout" style="margin-bottom:20px">Haven\'t taken the Level 0 diagnostic yet? '+
